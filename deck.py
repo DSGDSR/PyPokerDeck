@@ -1,4 +1,4 @@
-import json
+import json, random
 from card import Card
 
 class Deck():
@@ -16,13 +16,21 @@ class Deck():
                 deck.append(Card(value, suit, code, images))
             self.deck = deck
 
-    def drawCard(self):
-        self.number_of_cards -= 1
-        return self.deck.pop()
+    def drawCards(self, t):
+        cards = self.deck[self.number_of_cards-t:]
+        [self.deck.pop() for _ in range(0,t)]
+        self.number_of_cards = len(self.deck)
+        return cards
+
+    def shuffle(self, t):
+        [random.shuffle(self.deck) for _ in range(0,t)]
+        return self.deck
 
 
 
 if __name__ == "__main__":
     deck = Deck()
-    nc = deck.drawCard()
-    print(nc.code, deck.number_of_cards)
+    deck.shuffle(5)
+    nc = deck.drawCards(2)
+    nc = deck.drawCards(3)
+    print([c.code for c in nc], deck.number_of_cards)
