@@ -15,9 +15,14 @@ class Deck():
                 images = c.get("images")
                 deck.append(Card(value, suit, code, images))
             self.deck = deck
-            print(self.deck)
+
+    def drawCard(self):
+        self.number_of_cards -= 1
+        return self.deck.pop()
 
 
 
 if __name__ == "__main__":
     deck = Deck()
+    nc = deck.drawCard()
+    print(nc.code, deck.number_of_cards)
